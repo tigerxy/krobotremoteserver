@@ -1,0 +1,11 @@
+[versions]
+kotlin = "1.9.22"
+ktor-server-core = "2.3.8"
+
+[libraries]
+ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor-server-core" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+
+[plugins]
+
+[bundles]
