@@ -2,25 +2,37 @@ package de.rolandgreim.krobotremoteserver
 
 import de.rolandgreim.krobotremoteserver.xmlrpc.*
 import io.ktor.util.reflect.*
+import java.lang.reflect.InvocationTargetException
 import kotlin.reflect.KParameter
 import kotlin.reflect.full.memberFunctions
 
 class RobotLibrary(private val robotInterface: Any) {
     fun runMethod(methodName: String, params: List<Any>): Value {
         val method = robotInterface::class.memberFunctions.firstOrNull { it.name == methodName }
-        val result = method?.call(robotInterface, *params.toTypedArray())?.toValueType()
+        return try {
+            val result = method?.call(robotInterface, *params.toTypedArray())?.toValueType()
 
-        val returnValue = if (result == null) {
-            mapOf()
-        } else {
-            mapOf("return" to result)
+            val returnValue = result?.let {
+                mapOf("return" to result)
+            } ?: emptyMap()
+
+            StructValue(
+                mapOf(
+                    "status" to StringValue("PASS")
+                ) + returnValue
+            )
+        } catch (e: InvocationTargetException) {
+            val errorValue = e.targetException.message?.let {
+                mapOf("error" to StringValue(it))
+            } ?: emptyMap()
+
+            StructValue(
+                mapOf(
+                    "status" to StringValue("FAIL"),
+                    "traceback" to StringValue(e.targetException.stackTraceToString())
+                ) + errorValue
+            )
         }
-
-        return StructValue(
-            mapOf(
-                "status" to StringValue("PASS")
-            ) + returnValue
-        )
     }
 
     fun getKeywords(): ArrayValue {

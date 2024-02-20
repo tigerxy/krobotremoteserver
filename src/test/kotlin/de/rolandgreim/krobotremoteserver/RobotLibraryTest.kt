@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class RobotLibraryTest {
     @Test
@@ -27,5 +28,34 @@ class RobotLibraryTest {
         assertNotNull(returnValue)
         assertIs<IntegerValue>(returnValue)
         assertEquals(3, returnValue.value)
+    }
+
+    @Test
+    fun `run failing method`() {
+        val errorMessage = "This is an Error"
+
+        val robotLibrary = RobotLibrary(object {
+            fun failingMethod() {
+                throw Exception(errorMessage)
+            }
+        })
+
+        val value = robotLibrary.runMethod("failingMethod", emptyList())
+        assertIs<StructValue>(value)
+
+        val statusValue = value.members["status"]
+        assertNotNull(statusValue)
+        assertIs<StringValue>(statusValue)
+        assertEquals("FAIL", statusValue.value)
+
+        val errorValue = value.members["error"]
+        assertNotNull(errorValue)
+        assertIs<StringValue>(errorValue)
+        assertEquals(errorMessage, errorValue.value)
+
+        val tracebackValue = value.members["traceback"]
+        assertNotNull(tracebackValue)
+        assertIs<StringValue>(tracebackValue)
+        assertTrue { tracebackValue.value.isNotEmpty() }
     }
 }
