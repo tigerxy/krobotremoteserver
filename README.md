@@ -34,7 +34,7 @@ import io.ktor.server.netty.Netty
 import io.ktor.server.netty.NettyApplicationEngine
 
 class MyLibrary {
-    @Keyword(tags = ["x"])
+    @RobotKeyword(tags = ["x"])
     fun abc(a: Int) = a * 2
 }
 
