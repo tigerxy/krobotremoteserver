@@ -12,14 +12,14 @@ Maven:
 <dependency>
     <groupId>de.rolandgreim.krobotremoteserver</groupId>
     <artifactId>krobotremoteserver-ktor</artifactId>
-    <version>1.0</version>
+    <version>{VERSION}</version>
 </dependency>
 ```
 
 Gradle:
 
 ```groovy
-implementation 'de.rolandgreim.krobotremoteserver:krobotremoteserver-ktor:1.0'
+implementation 'de.rolandgreim.krobotremoteserver:krobotremoteserver-ktor:{VERSION}'
 ```
 
 ## Usage
