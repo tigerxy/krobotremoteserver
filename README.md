@@ -1,5 +1,7 @@
 # krobotremoteserver
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=tigerxy_krobotremoteserver&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=tigerxy_krobotremoteserver)
+
 This is a Kotlin implementation of krobotremoteserver, a framework for creating remote libraries for Robot Framework in Kotlin. This implementation utilizes Ktor as the HTTP server framework for providing remote library functionalities.
 
 ## Installation
