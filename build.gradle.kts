@@ -14,6 +14,7 @@ repositories {
 dependencies {
     implementation(libs.ktor.server.core)
     testImplementation(libs.kotlin.test)
+    testImplementation(libs.ktor.server.netty)
 }
 
 tasks.test {
