@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.9.23"
-ktor-server-core = "2.3.9"
+ktor-server-core = "3.0.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
